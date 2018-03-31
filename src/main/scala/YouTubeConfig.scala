@@ -1,0 +1,1 @@
+case class YouTubeConfig(apiKey:String,maxResults:Long)

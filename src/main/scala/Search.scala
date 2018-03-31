@@ -24,14 +24,7 @@ object Search extends App {
   }
   def searchByString(searchString:String): Unit ={
 
-    val youtube = new YouTube.Builder( new NetHttpTransport()
-      , new JacksonFactory()
-      , new HttpRequestInitializer(){
-        override def initialize(request: HttpRequest): Unit = {
-
-        }
-      }
-    ).setApplicationName("youtube_cmd").build
+    val youtube = YouTubeService.youtube
 
     val search = youtube.search().list("id")
     search.setKey(config.apiKey)
@@ -39,9 +32,8 @@ object Search extends App {
     search.setType("video")
     search.setFields("items(id/kind,id/videoId)")
     search.setMaxResults(config.maxResults)
-    val searchResponse = search.execute
-    val searchResult = searchResponse.getItems
 
+     val searchResult = search.execute.getItems
     searchResult.toList.map(x=>getTitleAndViewCount(youtube,config.apiKey,x)).foreach(println)
   }
 
@@ -49,7 +41,7 @@ object Search extends App {
     val videoResponse = yt.videos().list("snippet,contentDetails,statistics").setId(v.getId.getVideoId).setKey(key).execute()
     val video =  videoResponse.getItems.get(0)
    (video.getStatistics.getViewCount,video.getSnippet.getTitle)
-
   }
+
   readUserInputAndExecute
 }
