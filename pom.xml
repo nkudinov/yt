@@ -13,6 +13,12 @@
             <artifactId>google-api-services-youtube</artifactId>
             <version>v3-rev189-1.23.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.melrief/pureconfig -->
+        <dependency>
+            <groupId>com.github.pureconfig</groupId>
+            <artifactId>pureconfig_2.11</artifactId>
+            <version>0.9.1</version>
+        </dependency>
 
 
     </dependencies>
